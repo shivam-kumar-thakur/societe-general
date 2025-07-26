@@ -1,0 +1,68 @@
+spring:
+  application:
+    name: analysis
+
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+
+  data:
+    mongodb:
+      uri:
+      database: threat-intelligence
+
+    redis:
+      host: 127.0.0.1
+      port: 6379
+
+
+    rabbitmq:
+      host: localhost
+      port: 5672
+      username: guest
+      password: guest
+
+      queue:
+        ioc-collection-urlhaus: ioc.collection.urlhaus.queue
+        vulnerability-collection-talos: vulnerability.collection.talos.queue
+
+      exchange:
+        ioc-collection-urlhaus: ioc.collection.urlhaus.exchange
+        vulnerability-collection-talos: vulnerability.collection.talos.exchange
+
+      routing:
+        ioc-collection-urlhaus: ioc.collection.urlhaus.routing
+        vulnerability-collection-talos: vulnerability.collection.talos.routing
+
+server:
+  port: 8081
+
+  tomcat:
+    max-swallow-size: 20MB
+
+apikey:
+  urlhaus: a1f2c9854203842f760bba157c1ac03699f5950e1852a1ff
+
+
+llm:
+  ollama-url: http://localhost:11434/api/generate
+  gemini-api-url:
+  gemini-api-key:
+
+
+vulnerability:
+  talos-intelligence: https://talosintelligence.com/vulnerability_reports
+
+
+# Eureka client configuration
+# if multiple instance we will use this, for now no extra load
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+    register-with-eureka: true
+    fetch-registry: true
+  instance:
+    prefer-ip-address: true
+
